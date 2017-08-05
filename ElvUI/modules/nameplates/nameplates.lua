@@ -484,6 +484,7 @@ function mod:OnCreated(frame)
 	frame.UnitFrame.Debuffs = self:ConstructElement_Auras(frame.UnitFrame, "RIGHT")
 	frame.UnitFrame.HealerIcon = self:ConstructElement_HealerIcon(frame.UnitFrame)
 	frame.UnitFrame.CPoints = self:ConstructElement_CPoints(frame.UnitFrame)
+	frame.UnitFrame.Threat = self:ConstructElement_Threat(frame.UnitFrame)
 
 	self:QueueObject(CastBarBorder)
 	self:QueueObject(CastBarIcon)
@@ -652,6 +653,7 @@ function mod:PLAYER_ENTERING_WORLD()
 			self.CheckHealerTimer = nil
 		end
 	end
+	self:InitializeThreat()
 end
 
 function mod:PLAYER_TARGET_CHANGED()
