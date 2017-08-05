@@ -122,7 +122,7 @@ function mod:SetTargetFrame(frame)
 			frame.HealthBar.r, frame.HealthBar.g, frame.HealthBar.b = nil, nil, nil
 			self:ConfigureElement_HealthBar(frame)
 			self:ConfigureElement_CastBar(frame)
-			self:ConfigureElement_Glow(frame)
+			--self:ConfigureElement_Glow(frame)
 			self:ConfigureElement_Level(frame)
 			self:ConfigureElement_Name(frame)
 
@@ -163,7 +163,7 @@ function mod:SetTargetFrame(frame)
 	end
 
 	mod:UpdateElement_HealthColor(frame)
-	mod:UpdateElement_Glow(frame)
+	--mod:UpdateElement_Glow(frame)
 	mod:UpdateElement_CPoints(frame)
 
 	return frame.isTarget
@@ -361,7 +361,7 @@ function mod:OnShow()
 	mod:ConfigureElement_HealthBar(self.UnitFrame)
 	if mod.db.units[unitType].healthbar.enable then
 		mod:ConfigureElement_CastBar(self.UnitFrame)
-		mod:ConfigureElement_Glow(self.UnitFrame)
+		--mod:ConfigureElement_Glow(self.UnitFrame)
 
 		if mod.db.units[unitType].buffs.enable then
 			self.UnitFrame.Buffs.db = mod.db.units[unitType].buffs
@@ -405,8 +405,8 @@ function mod:OnHide()
 
 	mod:HideAuraIcons(self.UnitFrame.Buffs)
 	mod:HideAuraIcons(self.UnitFrame.Debuffs)
-	self.UnitFrame.Glow.r, self.UnitFrame.Glow.g, self.UnitFrame.Glow.b = nil, nil, nil
-	self.UnitFrame.Glow:Hide()
+	--self.UnitFrame.Glow.r, self.UnitFrame.Glow.g, self.UnitFrame.Glow.b = nil, nil, nil
+	--self.UnitFrame.Glow:Hide()
 	self.UnitFrame.HealthBar.r, self.UnitFrame.HealthBar.g, self.UnitFrame.HealthBar.b = nil, nil, nil
 	self.UnitFrame.HealthBar:Hide()
 	self.UnitFrame.CastBar:Hide()
@@ -479,7 +479,7 @@ function mod:OnCreated(frame)
 	frame.UnitFrame.CastBar = self:ConstructElement_CastBar(frame.UnitFrame)
 	frame.UnitFrame.Level = self:ConstructElement_Level(frame.UnitFrame)
 	frame.UnitFrame.Name = self:ConstructElement_Name(frame.UnitFrame)
-	frame.UnitFrame.Glow = self:ConstructElement_Glow(frame.UnitFrame)
+	--frame.UnitFrame.Glow = self:ConstructElement_Glow(frame.UnitFrame)
 	frame.UnitFrame.Buffs = self:ConstructElement_Auras(frame.UnitFrame, "LEFT")
 	frame.UnitFrame.Debuffs = self:ConstructElement_Auras(frame.UnitFrame, "RIGHT")
 	frame.UnitFrame.HealerIcon = self:ConstructElement_HealerIcon(frame.UnitFrame)
