@@ -144,7 +144,7 @@ function mod:SetTargetFrame(frame)
 		end
 		frame.isTarget = nil
 		frame.unit = nil
-		frame.guid = nil
+		--frame.guid = nil
 		if self.db.units[frame.UnitType].healthbar.enable ~= true then
 			self:UpdateAllFrame(frame)
 		end
@@ -164,6 +164,7 @@ function mod:SetTargetFrame(frame)
 
 	mod:UpdateElement_HealthColor(frame)
 	--mod:UpdateElement_Glow(frame)
+	mod:UpdateElement_Threat(frame)
 	mod:UpdateElement_CPoints(frame)
 
 	return frame.isTarget

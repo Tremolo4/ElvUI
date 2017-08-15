@@ -3,12 +3,10 @@ local mod = E:GetModule("NamePlates")
 local LSM = LibStub("LibSharedMedia-3.0")
 local ThreatLib = LibStub("Threat-2.0", true)
 
-local playerguid = UnitGUID("player")
-
 function mod:ThreatUpdated(event, srcGUID, dstGUID, threat)
 	local plate = mod:SearchNameplateByGUID(dstGUID)
 	if plate then
-		mod:UpdateElement_Threat(plate, threat)
+		mod:UpdateElement_Threat(plate)
 	end
 end
 
@@ -22,8 +20,6 @@ function mod:InitializeThreat()
 end
 
 function mod:ConstructElement_Threat(frame)
-	--print("constructing threat element")
-	
 	local f = CreateFrame("Frame", nil, frame)
 	f:SetFrameLevel(frame.HealthBar:GetFrameLevel() - 1)
 	f:SetOutside(frame.HealthBar, 3, 3)
@@ -37,26 +33,29 @@ function mod:ConstructElement_Threat(frame)
 	return f
 end
 
-function mod:UpdateElement_Threat(frame, newthreat)
-	--print("Updating plate for threat")
-	
-	local MaxThreat, MaxThreatGuid = ThreatLib:GetMaxThreatOnTarget(frame.guid)
+function mod:UpdateElement_Threat(frame)
 	local status = nil
-	if MaxThreatGuid ~= playerguid then
-		local MyThreat = ThreatLib:GetThreat(playerguid, frame.guid)
-		if MyThreat / MaxThreat > 0.9 then
-			status = 1
+	
+	if frame.guid then
+		local MaxThreat, MaxThreatGuid = ThreatLib:GetMaxThreatOnTarget(frame.guid)
+		if MaxThreatGuid ~= UnitGUID("player") then
+			local MyThreat = ThreatLib:GetThreat(UnitGUID("player"), frame.guid)
+			if MyThreat / MaxThreat > 0.9 then
+				status = 1
+			else
+				status = 0
+			end
 		else
-			status = 0
-		end
-	else
-		local SecondGuid, SecondThreat = ThreatLib:GetPlayerAtPosition(frame.guid, 2)
-		if SecondThreat / MaxThreat > 0.9 then
-			status = 2
-		else
-			status = 3
+			local SecondGuid, SecondThreat = ThreatLib:GetPlayerAtPosition(frame.guid, 2)
+			if SecondThreat / MaxThreat > 0.9 then
+				status = 2
+			else
+				status = 3
+			end
 		end
 	end
+	
+	--print("Updating plate for "..(frame.guid or "nil").." - status "..(status or "nil").." maxthreat="..(MaxThreat or "nil").." guid="..(MaxThreatGuid or "nil"))
 	
 	if status then
 		frame.Threat:Show()
