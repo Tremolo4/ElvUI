@@ -70,3 +70,9 @@ function mod:UpdateElement_Threat(frame)
 		end
 	end
 end
+
+SLASH_NPCPU1 = "/npcpu"
+SlashCmdList["NPCPU"] = function(msg)
+	local usage, calls = GetFunctionCPUUsage(mod.UpdateElement_Threat, true)
+    print("usage "..usage.." - calls "..calls)
+end 
